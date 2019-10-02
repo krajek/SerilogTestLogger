@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
 #pragma warning disable Serilog004 // Constant MessageTemplate verifier
-namespace SerilogTestLogger
+// ReSharper disable once CheckNamespace
+namespace Serilog.TestLogger
 {
     public class SerilogTestLogger : ILogger
     {
