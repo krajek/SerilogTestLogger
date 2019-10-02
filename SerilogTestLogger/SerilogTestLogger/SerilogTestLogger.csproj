@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Artur Krajewski</Authors>
+    <Company />
+    <Product />
+    <Description>In-memory Serilog logger intended for automatic tests</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/krajek/SerilogTestLogger</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/krajek/SerilogTestLogger</RepositoryUrl>
+    <PackageTags>serilog, logging, tests</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.5.0" />
+  </ItemGroup>
+
+</Project>
