@@ -1,5 +1,7 @@
 # SerilogTestLogger
 
+![Azure DevOps builds](https://img.shields.io/azure-devops/build/arturkrajewski/Serilog.TestLogger/2)
+
 Serilog.TestLogger:
 [![Serilog.TestLogger nuget package](https://img.shields.io/nuget/v/Serilog.TestLogger.svg)](https://www.nuget.org/packages/Serilog.TestLogger/)
 
