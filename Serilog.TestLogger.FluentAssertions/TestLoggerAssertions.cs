@@ -8,9 +8,9 @@ using Serilog.TestLogger;
 // ReSharper disable once CheckNamespace
 namespace FluentAssertions
 {
-    public class TestLoggerAssertions : ReferenceTypeAssertions<SerilogTestLogger, TestLoggerAssertions>
+    public class TestLoggerAssertions : ReferenceTypeAssertions<ILogEventsContainer, TestLoggerAssertions>
     {
-        public TestLoggerAssertions(SerilogTestLogger logEvents)
+        public TestLoggerAssertions(ILogEventsContainer logEvents)
         {
             Subject = logEvents;
         }

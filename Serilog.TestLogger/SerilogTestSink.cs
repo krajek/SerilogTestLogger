@@ -5,9 +5,9 @@ using Serilog.Events;
 // ReSharper disable once CheckNamespace
 namespace Serilog.TestLogger
 {
-    public class SerilogTestSink : ILogEventSink
+    public class SerilogTestSink : ILogEventSink, ILogEventsContainer
     {
-        public List<LogEvent> Events { get; } = new List<LogEvent>();
+        public IList<LogEvent> Events { get; } = new List<LogEvent>();
 
         public void Emit(LogEvent logEvent)
         {

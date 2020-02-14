@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/krajek/SerilogTestLogger</PackageProjectUrl>
     <RepositoryUrl>https://github.com/krajek/SerilogTestLogger</RepositoryUrl>
     <PackageTags>serilog, logging, tests</PackageTags>
-    <Version>1.2</Version>
+    <Version>1.3.0</Version>
     <AssemblyName>Serilog.TestLogger</AssemblyName>
     <RootNamespace>Serilog.TestLogger</RootNamespace>
   </PropertyGroup>

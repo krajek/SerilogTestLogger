@@ -7,7 +7,7 @@ using Serilog.Events;
 // ReSharper disable once CheckNamespace
 namespace Serilog.TestLogger
 {
-    public class SerilogTestLogger : ILogger
+    public class SerilogTestLogger : ILogger, ILogEventsContainer
     {
         private readonly SerilogTestSink testSink = new SerilogTestSink();
         private readonly ILogger innerLogger;
