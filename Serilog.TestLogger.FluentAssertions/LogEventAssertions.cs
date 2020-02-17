@@ -18,6 +18,15 @@ namespace FluentAssertions
 
         public AndWhichConstraint<LogEventAssertions, LogEventPropertyValue> ContainPropertyWithValue(
             string propertyName,
+            Guid propertyValue,
+            string because = "",
+            params object[] becauseArgs)
+        {
+            return ContainPropertyWithValue(propertyName, propertyValue.ToString(), because, becauseArgs);
+        }
+
+        public AndWhichConstraint<LogEventAssertions, LogEventPropertyValue> ContainPropertyWithValue(
+            string propertyName,
             string propertyValue,
             string because = "",
             params object[] becauseArgs)

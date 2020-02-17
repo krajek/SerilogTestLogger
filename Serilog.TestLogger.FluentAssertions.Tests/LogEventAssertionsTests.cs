@@ -51,8 +51,8 @@ namespace Serilog.TestLogger.FluentAssertions.Tests
             Action action = () =>
                 logger.Should().HaveLoggedErrorContaining("MSG")
                     .Which.Should().ContainPropertyWithValue(
-                        "ObjectId", 
-                        "8e1e1358-5095-4730-8e34-bb98913c13c2");
+                        "ObjectId",
+                        propertyValue);
 
             // Assert
             action.Should().NotThrow();
