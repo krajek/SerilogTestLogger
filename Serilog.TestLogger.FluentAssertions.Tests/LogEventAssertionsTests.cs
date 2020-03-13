@@ -2,6 +2,7 @@
 using Xunit;
 using Xunit.Sdk;
 using FluentAssertions;
+using Serilog.Events;
 
 namespace Serilog.TestLogger.FluentAssertions.Tests
 {
@@ -23,6 +24,58 @@ namespace Serilog.TestLogger.FluentAssertions.Tests
 
             // Assert
             action.Should().NotThrow();
+        }
+
+        [Fact]
+        public void HaveLoggedErrorContaining_TwoLogEventsWithSameTemplate_MatchesByTemplateAndProperty()
+        {
+            // Arrange
+            logger.Error("MSG {ObjectId}", 123);
+            logger.Error("MSG {ObjectId}", 124);
+
+            // Act
+
+            Action action = () =>
+                logger.Should().HaveLoggedEventOnLevelWithMatchingTemplateAndPropertyValue(
+                        LogEventLevel.Error, "MSG", "ObjectId", "124");
+
+            // Assert
+            action.Should().NotThrow();
+        }
+
+        [Fact]
+        public void HaveLoggedInformationContaining_TwoLogEventsWithSameTemplate_MatchesByTemplateAndProperty()
+        {
+            // Arrange
+            logger.Information("MSG {ObjectId}", 123);
+            logger.Information("MSG {ObjectId}", 124);
+
+            // Act
+
+            Action action = () =>
+                logger.Should().HaveLoggedInformationWithMatchingTemplateAndPropertyValue(
+                    "MSG", "ObjectId", "124");
+
+            // Assert
+            action.Should().NotThrow();
+        }
+
+        [Fact]
+        public void HaveLoggedErrorContaining_TwoLogEventsWithSameTemplate_DoesNotMatchByTemplateAndProperty()
+        {
+            // Arrange
+            logger.Error("MSG {ObjectId}", 123);
+            logger.Error("MSG {ObjectId}", 124);
+
+            // Act
+
+            Action action = () =>
+                logger.Should().HaveLoggedEventOnLevelWithMatchingTemplateAndPropertyValue(
+                    LogEventLevel.Error, "MSG", "ObjectId", "125");
+
+            // Assert
+            action.Should().Throw<XunitException>()
+                .WithMessage("Expected logEvents to contain 1 message on level Error with message containing \"MSG\" and property \"ObjectId\"=\"125\", but it contained 0");
         }
 
         [Fact]
@@ -56,6 +109,81 @@ namespace Serilog.TestLogger.FluentAssertions.Tests
 
             // Assert
             action.Should().NotThrow();
+        }
+
+        [Fact]
+        public void HaveLoggedErrorContaining_LogEventContainsDateTime_MatchesByDateTime()
+        {
+            // Arrange
+            var propertyValue = DateTime.Now;
+            logger.Error("MSG {SomeDate}", propertyValue);
+
+            // Act
+            Action action = () =>
+                logger.Should().HaveLoggedErrorContaining("MSG")
+                    .Which.Should().ContainPropertyWithValue(
+                        "SomeDate",
+                        propertyValue);
+
+            // Assert
+            action.Should().NotThrow();
+        }
+
+        [Fact]
+        public void HaveLoggedErrorContaining_LogEventContainsDateTime_NotMatchesByDateTime()
+        {
+            // Arrange
+            var propertyValue = new DateTime(2020, 01, 02, 10 ,9 ,8, 7);
+            logger.Error("MSG {SomeDate}", propertyValue);
+
+            // Act
+            Action action = () =>
+                logger.Should().HaveLoggedErrorContaining("MSG")
+                    .Which.Should().ContainPropertyWithValue(
+                        "SomeDate",
+                        propertyValue.AddMilliseconds(1));
+
+            // Assert
+            action.Should().Throw<XunitException>()
+                .WithMessage("*to contain datetime property \"SomeDate\" with value <2020-01-02 10:09:08.008> but instead <2020-01-02 10:09:08.007> was received*");
+        }
+
+        [Fact]
+        public void HaveLoggedErrorContaining_LogEventContainsDateTime_PropertyIsNotADateTime()
+        {
+            // Arrange
+            var propertyValue = new DateTime(2020, 01, 02, 10, 9, 8, 7);
+            logger.Error("MSG {SomeDate}", "SOME STRING");
+
+            // Act
+            Action action = () =>
+                logger.Should().HaveLoggedErrorContaining("MSG")
+                    .Which.Should().ContainPropertyWithValue(
+                        "SomeDate",
+                        propertyValue);
+
+            // Assert
+            action.Should().Throw<XunitException>()
+                .WithMessage("*to contain datetime property \"SomeDate\" but it is not a datetime*");
+        }
+
+        [Fact]
+        public void HaveLoggedErrorContaining_LogEventContainsDateTime_PropertyIsMissing()
+        {
+            // Arrange
+            var propertyValue = new DateTime(2020, 01, 02, 10, 9, 8, 7);
+            logger.Error("MSG {SomeDate2}", "SOME STRING");
+
+            // Act
+            Action action = () =>
+                logger.Should().HaveLoggedErrorContaining("MSG")
+                    .Which.Should().ContainPropertyWithValue(
+                        "SomeDate",
+                        propertyValue);
+
+            // Assert
+            action.Should().Throw<XunitException>()
+                .WithMessage("*to contain datetime property \"SomeDate\" but it is missing*");
         }
 
         [Fact]

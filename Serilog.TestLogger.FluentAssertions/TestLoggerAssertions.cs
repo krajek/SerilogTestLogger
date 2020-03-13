@@ -50,6 +50,87 @@ namespace FluentAssertions
             return HaveLoggedEventsOnLevelContaining(logEventLevel, partOfMessage, 1, because, becauseArgs);
         }
 
+        public AndWhichConstraint<TestLoggerAssertions, LogEvent>
+            HaveLoggedInformationWithMatchingTemplateAndPropertyValue(
+                string partOfMessage,
+                string propertyKey,
+                string propertyValue,
+                string because = "",
+                params object[] becauseArgs)
+        {
+            return HaveLoggedEventOnLevelWithMatchingTemplateAndPropertyValue(
+                LogEventLevel.Information,
+                partOfMessage,
+                propertyKey,
+                propertyValue,
+                because,
+                becauseArgs);
+        }
+
+        public AndWhichConstraint<TestLoggerAssertions, LogEvent>
+            HaveLoggedWarningWithMatchingTemplateAndPropertyValue(
+                string partOfMessage,
+                string propertyKey,
+                string propertyValue,
+                string because = "",
+                params object[] becauseArgs)
+        {
+            return HaveLoggedEventOnLevelWithMatchingTemplateAndPropertyValue(
+                LogEventLevel.Warning,
+                partOfMessage,
+                propertyKey,
+                propertyValue,
+                because,
+                becauseArgs);
+        }
+
+        public AndWhichConstraint<TestLoggerAssertions, LogEvent>
+            HaveLoggedErrorWithMatchingTemplateAndPropertyValue(
+                string partOfMessage,
+                string propertyKey,
+                string propertyValue,
+                string because = "",
+                params object[] becauseArgs)
+        {
+            return HaveLoggedEventOnLevelWithMatchingTemplateAndPropertyValue(
+                LogEventLevel.Error,
+                partOfMessage,
+                propertyKey,
+                propertyValue,
+                because,
+                becauseArgs);
+        }
+
+        public AndWhichConstraint<TestLoggerAssertions, LogEvent> HaveLoggedEventOnLevelWithMatchingTemplateAndPropertyValue(
+            LogEventLevel logEventLevel,
+            string partOfMessage,
+            string propertyKey,
+            string propertyValue,
+            string because = "",
+            params object[] becauseArgs)
+        {
+            var matchingLogEvents = Subject.Events
+                .Where(x => 
+                    x.MessageTemplate.Text.IndexOf(partOfMessage, StringComparison.InvariantCultureIgnoreCase) >= 0 && 
+                    x.Level == logEventLevel && 
+                    x.Properties.ContainsKey(propertyKey) &&
+                    propertyValue.Equals(
+                        LogEventAssertions.ExtractStringRepresentationOfLogEventPropertyValue(x.Properties[propertyKey]),
+                        StringComparison.InvariantCultureIgnoreCase)
+                    ).ToList();
+
+            const int count = 1;
+            Execute.Assertion
+                .BecauseOf(because, becauseArgs)
+                .ForCondition(matchingLogEvents.Count == count)
+                .FailWith("Expected {context:logEvents} to contain {0} message on level {1} with message containing {2}{reason} and property {3}={4}, but it contained {5}",
+                    count, logEventLevel, partOfMessage, propertyKey, propertyValue, matchingLogEvents.Count);
+
+            var matchingEvent = matchingLogEvents[0];
+
+            return new AndWhichConstraint<TestLoggerAssertions, LogEvent>(this, matchingEvent);
+        }
+
         public AndWhichConstraint<TestLoggerAssertions, LogEvent> HaveLoggedEventsOnLevelContaining(
             LogEventLevel logEventLevel,
             string partOfMessage,
