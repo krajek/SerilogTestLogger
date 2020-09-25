@@ -7,7 +7,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.TestLogger", "Seril
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.TestLogger.FluentAssertions", "Serilog.TestLogger.FluentAssertions\Serilog.TestLogger.FluentAssertions.csproj", "{32243384-3B0D-4F94-99B8-896B1B843FAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.TestLogger.FluentAssertions.Tests", "Serilog.TestLogger.FluentAssertions.Tests\Serilog.TestLogger.FluentAssertions.Tests.csproj", "{1C0525B8-D9AE-4003-B76B-293A0687FF00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.TestLogger.FluentAssertions.Tests", "Serilog.TestLogger.FluentAssertions.Tests\Serilog.TestLogger.FluentAssertions.Tests.csproj", "{1C0525B8-D9AE-4003-B76B-293A0687FF00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{EDF82600-3C80-497E-A133-DD5BEEB2DF8D}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
