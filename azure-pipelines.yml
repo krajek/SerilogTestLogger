@@ -14,7 +14,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'Serilog.TestLogger.csproj'
+    packagesToPack: 'Serilog.TestLogger/Serilog.TestLogger.csproj'
     includesymbols: true
     versioningScheme: 'off'
 
