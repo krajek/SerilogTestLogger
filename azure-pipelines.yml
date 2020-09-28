@@ -1,6 +1,8 @@
 trigger:
 - master
 
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -16,7 +18,7 @@ steps:
     command: 'pack'
     packagesToPack: 'Serilog.TestLogger/Serilog.TestLogger.csproj'
     includesymbols: true 
-    versioningScheme: byBuildNumber   
+    versioningScheme: byBuildNumber
     
 - task: DotNetCoreCLI@2
   inputs:
