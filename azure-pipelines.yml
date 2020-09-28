@@ -14,9 +14,11 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
-    packagesToPack: 'Serilog.TestLogger/Serilog.TestLogger.csproj'
-    includesymbols: true
-    versioningScheme: 'off'
+    packagesToPack: '- task: DotNetCoreCLI@2
 
-
-
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '746aa343-1f92-4e0e-866a-d1ef0529fbc4/2f17dd79-ecd2-40b9-85bd-a6df469eeaf0'
