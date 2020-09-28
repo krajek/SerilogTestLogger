@@ -25,7 +25,6 @@ steps:
     arguments: '--skip-duplicate'
 
 - task: PublishSymbols@2
-- task: PublishSymbols@2
   inputs:
     SearchPattern: '**/bin/**/*.pdb'
     SymbolServerType: 'TeamServices'
