@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/krajek/SerilogTestLogger</PackageProjectUrl>
     <RepositoryUrl>https://github.com/krajek/SerilogTestLogger</RepositoryUrl>
     <PackageTags>serilog, logging, tests</PackageTags>
-    <Version>1.4.0-alpha3</Version>
+    <Version>1.4.0</Version>
     <AssemblyName>Serilog.TestLogger</AssemblyName>
     <RootNamespace>Serilog.TestLogger</RootNamespace>
     <IncludeSymbols>true</IncludeSymbols>
@@ -26,8 +26,8 @@
 
   <ItemGroup>
     <PackageReference Include="Serilog" Version="2.5.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All"/>
-    <PackageReference Include="SourceLink.Create.CommandLine" Version="1.0.0" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="SourceLink.Create.CommandLine" Version="2.8.3" PrivateAssets="All" />
     
   </ItemGroup>
 
