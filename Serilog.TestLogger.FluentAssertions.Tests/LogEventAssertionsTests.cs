@@ -75,7 +75,7 @@ namespace Serilog.TestLogger.FluentAssertions.Tests
 
             // Assert
             action.Should().Throw<XunitException>()
-                .WithMessage("Expected logEvents to contain 1 message on level Error with message containing \"MSG\" and property \"ObjectId\"=\"125\", but it contained 0");
+                .WithMessage("Expected logEvents to contain 1 message on level \"Error\" with message containing \"MSG\" and property \"ObjectId\"=\"125\", but it contained 0");
         }
 
         [Fact]

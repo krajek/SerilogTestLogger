@@ -10,9 +10,8 @@ namespace FluentAssertions
 {
     public class TestLoggerAssertions : ReferenceTypeAssertions<ILogEventsContainer, TestLoggerAssertions>
     {
-        public TestLoggerAssertions(ILogEventsContainer logEvents)
+        public TestLoggerAssertions(ILogEventsContainer logEvents):base(logEvents)
         {
-            Subject = logEvents;
         }
 
         protected override string Identifier => "logEvents";
@@ -124,7 +123,12 @@ namespace FluentAssertions
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(matchingLogEvents.Count == count)
                 .FailWith("Expected {context:logEvents} to contain {0} message on level {1} with message containing {2}{reason} and property {3}={4}, but it contained {5}",
-                    count, logEventLevel, partOfMessage, propertyKey, propertyValue, matchingLogEvents.Count);
+                    count, 
+                    Enum.GetName(typeof(LogEventLevel), logEventLevel), 
+                    partOfMessage, 
+                    propertyKey, 
+                    propertyValue, 
+                    matchingLogEvents.Count);
 
             var matchingEvent = matchingLogEvents[0];
 

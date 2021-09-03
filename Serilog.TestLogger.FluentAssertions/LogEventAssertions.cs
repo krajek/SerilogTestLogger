@@ -10,9 +10,8 @@ namespace FluentAssertions
 {
     public class LogEventAssertions : ReferenceTypeAssertions<LogEvent, LogEventAssertions>
     {
-        public LogEventAssertions(LogEvent logEvent)
+        public LogEventAssertions(LogEvent logEvent):base(logEvent)
         {
-            Subject = logEvent;
         }
 
         protected override string Identifier => "logEvent";
