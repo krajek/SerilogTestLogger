@@ -7,14 +7,14 @@ using Serilog.Events;
 // ReSharper disable once CheckNamespace
 namespace Serilog.TestLogger
 {
-    public class SerilogTestLogger : ILogger, ILogEventsContainer
+    public class SerilogTestLogger : ILogger, ILogEventsContainer, IDisposable
     {
         private readonly SerilogTestSink testSink = new SerilogTestSink();
-        private readonly ILogger innerLogger;
-
-        public SerilogTestLogger()
+        private readonly Logger innerLogger;
+        
+        public SerilogTestLogger(Func<LoggerConfiguration,LoggerConfiguration> loggerConfiguration = default)
         {
-            innerLogger = new LoggerConfiguration()
+            innerLogger = (loggerConfiguration?.Invoke(new LoggerConfiguration()) ?? new LoggerConfiguration())
                 .Enrich.FromLogContext()
                 .WriteTo.Sink(testSink).CreateLogger();
         }
@@ -435,6 +435,11 @@ namespace Serilog.TestLogger
         public bool BindProperty(string propertyName, object value, bool destructureObjects, out LogEventProperty property)
         {
             return innerLogger.BindProperty(propertyName, value, destructureObjects, out property);
+        }
+
+        public void Dispose()
+        {
+            innerLogger?.Dispose();
         }
     }
 }
