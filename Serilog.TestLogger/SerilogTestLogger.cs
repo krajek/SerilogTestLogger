@@ -11,7 +11,7 @@ namespace Serilog.TestLogger
     {
         private readonly SerilogTestSink testSink = new SerilogTestSink();
         private readonly Logger innerLogger;
-        
+
         public SerilogTestLogger(Func<LoggerConfiguration,LoggerConfiguration> loggerConfiguration = default)
         {
             innerLogger = (loggerConfiguration?.Invoke(new LoggerConfiguration()) ?? new LoggerConfiguration())
