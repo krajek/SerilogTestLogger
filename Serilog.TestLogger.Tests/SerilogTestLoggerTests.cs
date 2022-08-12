@@ -10,7 +10,8 @@ public class SerilogTestLoggerTests
     {
         // Arrange
         var stubSink = new SerilogTestSink();
-        using var testLogger = new SerilogTestLogger(o => o.WriteTo.Sink(stubSink));
+        var loggerConfiguration = new LoggerConfiguration().WriteTo.Sink(stubSink);
+        using var testLogger = new SerilogTestLogger(loggerConfiguration);
         
         var logMessage = "This log should appear in stubSink";
         

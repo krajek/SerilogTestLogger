@@ -12,9 +12,17 @@ namespace Serilog.TestLogger
         private readonly SerilogTestSink testSink = new SerilogTestSink();
         private readonly Logger innerLogger;
 
-        public SerilogTestLogger(Func<LoggerConfiguration,LoggerConfiguration> loggerConfiguration = default)
+        /// <summary>
+        /// Creates new instance of SerilogTestLogger with default configuration 
+        /// </summary>
+        /// <param name="loggerConfiguration">(optional) Enables to configure inner logger.
+        /// For simplicity, you might want to configure logger for your needs e.g.:
+        /// remove unnecessary logs by setting MinimumLevel or add more sinks.</param>
+        public SerilogTestLogger(LoggerConfiguration loggerConfiguration = null)
         {
-            innerLogger = (loggerConfiguration?.Invoke(new LoggerConfiguration()) ?? new LoggerConfiguration())
+            loggerConfiguration = loggerConfiguration ?? new LoggerConfiguration();
+            
+            innerLogger = loggerConfiguration
                 .Enrich.FromLogContext()
                 .WriteTo.Sink(testSink).CreateLogger();
         }
